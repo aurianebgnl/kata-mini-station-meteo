@@ -29,7 +29,7 @@ function showOutput(name, latitude, longitude, temp) {
 }
 
 // Fonction pour récuperer les coordonnées GPS d'une ville sur l'API Open Street Map
-async function fetchCityGPS(city) {
+async function fetchCoordinates(city) {
     try {
   
       const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${city}&format=json&addressdetails=1&limit=1`);
@@ -45,7 +45,7 @@ async function fetchCityGPS(city) {
   }
 
 // Fonction pour récupérer la température à partir des coordonées d'une ville sur l'API Open Meteo
-async function fetchCityWeather(cityLat, cityLon) {
+async function fetchWeather(cityLat, cityLon) {
     try {
 
         const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${cityLat}&longitude=${cityLon}&current=temperature_2m,precipitation,relative_humidity_2m`);
@@ -63,11 +63,11 @@ async function fetchCityWeather(cityLat, cityLon) {
 // Fonction pour lancer la recherche de la ville
 BTN_OK.addEventListener("click", async () => {
     let cityInput = document.querySelector("#city-input").value;
-    const city = await fetchCityGPS(cityInput);
+    const city = await fetchCoordinates(cityInput);
     const cityName = city[0].name
     const cityLat = city[0].lat
     const cityLon = city[0].lon
-    const temp = await fetchCityWeather(cityLat, cityLon)
+    const temp = await fetchWeather(cityLat, cityLon)
     const cityTemp = temp.current.temperature_2m
 
     console.log(city);
