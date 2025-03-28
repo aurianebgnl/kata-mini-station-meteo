@@ -1,7 +1,10 @@
 const BTN_OK = document.querySelector("#btn-ok");
+const CITY_INPUT = document.querySelector("#city-input");
 const CITY_OUTPUT = document.querySelector("#city");
 const GPS_OUTPUT = document.querySelector("#gps");
 const TEMP_OUTPUT = document.querySelector("#temperature");
+const RAIN_OUTPUT = document.querySelector("#rain");
+const HUMIDITY_OUTPUT = document.querySelector("#humidity");
 const DETAILS_OUTPUT = document.querySelector("#details");
 
 // fonction pour récupérer le nom de la ville à rechercher
@@ -12,10 +15,12 @@ function getCityName() {
 }
 
 // Fonction pour afficher les données récupérées sur la page
-function showOutput(name, latitude, longitude, temp) {
+function showOutput(name, latitude, longitude, temp, rain, humidity) {
     CITY_OUTPUT.innerHTML = name
     GPS_OUTPUT.innerHTML = `Coordonées GPS : ${latitude}, ${longitude}`
     TEMP_OUTPUT.innerHTML = `${temp}°C`
+    RAIN_OUTPUT.innerHTML = `Précipitations : ${rain} mm |`
+    HUMIDITY_OUTPUT.innerHTML = `Taux d'humidité : ${humidity} %`
     DETAILS_OUTPUT.innerHTML = "Température actuelle";
 
     return
@@ -77,10 +82,19 @@ BTN_OK.addEventListener("click", async () => {
     const cityName = city[0].name
     const cityLat = city[0].lat
     const cityLon = city[0].lon
-    
+
     const temp = await fetchWeather(cityLat, cityLon)
     const cityTemp = temp.current.temperature_2m
+    const cityRain = temp.current.precipitation
+    const cityHumidity = temp.current.relative_humidity_2m
 
-    showOutput(cityName, cityLat, cityLon, cityTemp)
+    showOutput(cityName, cityLat, cityLon, cityTemp, cityRain, cityHumidity)
 
     });
+
+// Ajouter un événement pour détecter l'appui sur la touche "Entrée"
+CITY_INPUT.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        BTN_OK.click(); // Simule un clic sur le bouton
+    }
+});
