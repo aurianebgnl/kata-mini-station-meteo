@@ -7,6 +7,12 @@ const RAIN_OUTPUT = document.querySelector("#rain");
 const HUMIDITY_OUTPUT = document.querySelector("#humidity");
 const DETAILS_OUTPUT = document.querySelector("#details");
 
+// affichage des icônes 
+let iconHumidity = "<img id='icon-humidity' src='images/droplets.svg' alt='Icone taux d'humidité' />"
+let iconUmbrella = "<img id='icon-umbrella' src='images/umbrella.svg' alt='Icone précipitations' />";
+let iconLocation = () => "<img id='icon-location' src='images/map-pin.svg' alt='Icone localisation' />";
+let iconThermometer = () => "<img id='icon-thermometer' src='images/thermometer.svg' alt='Icone températures' />";
+
 // fonction pour récupérer le nom de la ville à rechercher
 function getCityName() {
     let input = document.querySelector("#city-input").value;
@@ -14,13 +20,25 @@ function getCityName() {
     return input
 }
 
+// // Fonction pour afficher les données récupérées sur la page
+// function showOutput(name, latitude, longitude, temp, rain, humidity) {
+//     CITY_OUTPUT.innerHTML = name
+//     GPS_OUTPUT.innerHTML = `Coordonées GPS : ${latitude}, ${longitude}`
+//     TEMP_OUTPUT.innerHTML = `${temp}°C`
+//     RAIN_OUTPUT.innerHTML = `Précipitations : ${rain} mm |`
+//     HUMIDITY_OUTPUT.innerHTML = `Taux d'humidité : ${humidity} %`
+//     DETAILS_OUTPUT.innerHTML = "Température actuelle";
+
+//     return
+// }
+
 // Fonction pour afficher les données récupérées sur la page
 function showOutput(name, latitude, longitude, temp, rain, humidity) {
     CITY_OUTPUT.innerHTML = name
-    GPS_OUTPUT.innerHTML = `Coordonées GPS : ${latitude}, ${longitude}`
-    TEMP_OUTPUT.innerHTML = `${temp}°C`
-    RAIN_OUTPUT.innerHTML = `Précipitations : ${rain} mm |`
-    HUMIDITY_OUTPUT.innerHTML = `Taux d'humidité : ${humidity} %`
+    GPS_OUTPUT.innerHTML = `${iconLocation()} ${latitude}, ${longitude}`
+    TEMP_OUTPUT.innerHTML = `${iconThermometer()} ${temp}°C`
+    RAIN_OUTPUT.innerHTML = `${iconUmbrella} ${rain} mm |`
+    HUMIDITY_OUTPUT.innerHTML = `${iconHumidity}  ${humidity} %`
     DETAILS_OUTPUT.innerHTML = "Température actuelle";
 
     return
