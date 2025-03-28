@@ -20,7 +20,7 @@ function getCityName() {
     return input
 }
 
-// // Fonction pour afficher les données récupérées sur la page
+// Fonction pour afficher les données récupérées sur la page
 // function showOutput(name, latitude, longitude, temp, rain, humidity) {
 //     CITY_OUTPUT.innerHTML = name
 //     GPS_OUTPUT.innerHTML = `Coordonées GPS : ${latitude}, ${longitude}`
